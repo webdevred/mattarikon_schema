@@ -14,7 +14,6 @@ if( isset($_GET["activity_id"] )) {
                           FROM activities AS a
                           LEFT JOIN activities_time_and_place AS t ON a.id = t.activity_id 
                           WHERE a.id = ? ORDER BY t.timestamp LIMIT 1;");
-                          echo $conn->error;
     $stmt->bind_param("i", $_GET["activity_id"]);
     $stmt->execute();
     $stmt->bind_result($activity_id, $name, $type, $responsible_staff, $summary, $room, $start_time, $end_time);
