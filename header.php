@@ -2,7 +2,8 @@
 <html>
 <head>
 <link rel="stylesheet" href="style.css" />
-<link rel="icon" href="https://mattarikon.se/onewebmedia/Mattarikon_favico.png" />
+<link rel="icon" href="https://mattarikon.se/onewebmedia/Mattarikon_favico.png">
+<title>Schema | Mattarikon</title>
 </head>
 <body <?php if(isset($_GET["m"]) AND $_GET["m"] == "1" )  { ?> class="on-monitor"<?php } ?>>
 <div id="page">
