@@ -3,8 +3,10 @@
 if( ! isset($_SESSION["current_user"])) {
     echo "oh no site broken =/";
 } else {
-    ?><table>
+    ?><form method="POST" action="list_activities_action.php"><table>
+        <button type="submit">Ta bort markerade akiviteter som har ikryssad checkbox (du kan kryssa i checkboxen i listan)</button>
       <tr>
+          <td></td>
           <th>ID</th>
           <th>Name</th>
           <th>Movie/Föreläsning</th>
@@ -31,6 +33,7 @@ if( ! isset($_SESSION["current_user"])) {
     
     while( $activity = $query->fetch_object() ) {
         ?><tr>
+            <td><input type="checkbox" name="delete_activity[<?php echo $activity->id; ?>]"></td>
             <td><?php echo $activity->id; ?></td>
             <td><a href="edit_activity.php?activity_id=<?php echo $activity->id; ?>"><?php echo $activity->name; ?></a></td>
             <td><?php echo sprintf("%s (%s)", $activity->type_display_name, $activity->type); ?></td>
@@ -40,7 +43,7 @@ if( ! isset($_SESSION["current_user"])) {
         </tr><?php
     }
     
-    ?></table><?php
+    ?></table></form><?php
 }
 
 require("footer.php");
