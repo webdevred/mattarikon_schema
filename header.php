@@ -24,6 +24,7 @@
     | <a href="edit_activity.php">Lägg till ny aktivitet</a> 
         | <a href="create_notification.php">Lägg till ny notis</a>
     | <a href="list_activities.php">Lista alla aktiviteter (för debug)</a>
+      | <a href="delete_notification.php">Ta bort notis</a>
     | <a href="logout.php">Logga ut</a>
     </span><?php } 
   
