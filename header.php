@@ -7,15 +7,10 @@
 </head>
 <body <?php if(isset($_GET["m"]) AND $_GET["m"] == "1" )  { ?> class="on-monitor"<?php } ?>>
 <div id="page">
-    <?php 
-    $datetime = new DateTime(null, new DateTimeZone("Europe/Stockholm"));
-    if( ! isset($_GET["t"])) {
-      $current_time = $datetime->format("H:i");
-    } else {
-      $current_time = $_GET["t"];
-    } ?>
 <!-- <h1>Mattarikon <?php echo date("Y"); ?></h1> -->
-  <aside id="clock"><?php echo $current_time; ?></aside>
+    <aside id="clock"><?php
+                      global $current_time;
+                      echo $current_time; ?></aside>
 <header>
   <img src="Mattarikon_logo_2.png" />
   <?php if(isset($_SESSION["current_user"])) { ?>

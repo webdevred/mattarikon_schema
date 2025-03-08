@@ -2,6 +2,13 @@
 
 require("config.php");
 
+$datetime = new DateTime(null, new DateTimeZone("Europe/Stockholm"));
+if( ! isset($_GET["t"])) {
+    $current_time = $datetime->format("H:i");
+} else {
+    $current_time = $_GET["t"];
+}
+
 if (file_exists(__DIR__ ."/.htaccess") and $_SERVER['REQUEST_METHOD'] === 'GET') {
     $request = $_SERVER['REQUEST_URI'];
 
@@ -16,8 +23,19 @@ if (file_exists(__DIR__ ."/.htaccess") and $_SERVER['REQUEST_METHOD'] === 'GET')
     }
 }
 
-function list_activities($qwhere = "") {
+function list_activities($filter = 0) {
     global $conn;
+    global $current_time;
+
+    $qwhere = "";
+    switch($filter) {
+    case 1:
+	    $qwhere = "WHERE ut.end_time > CAST('" . $current_time . "' AS TIME) AND ut.start_time <= CAST('" . $current_time . "' AS TIME)";
+	    break;
+    case 2:
+        $qwhere = "WHERE ut.start_time > CAST('" . $current_time . "' AS TIME)";
+	break;
+    }
     $activities = $conn->query("WITH time_and_place_ids AS ( SELECT DISTINCT activity_id,
             min(id) OVER(PARTITION by activity_id ) AS outdated_time_id,
             max(id) OVER(PARTITION by activity_id) AS updated_time_id

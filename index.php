@@ -1,7 +1,7 @@
 <?php require("header.php");
 
-function show_activities($qwhere = "") {
-    $qry = list_activities($qwhere);
+function show_activities($filter) {
+    $qry = list_activities($filter);
     ?><div class="activity-container">
        <h3 class="desktop-only-heading">Filmer</h3>
        <h3 class="desktop-only-heading">Aktiviteter</h3><?php
@@ -30,13 +30,12 @@ function show_activities($qwhere = "") {
 if( ! defined("CONVENTION_DATE") OR ( defined("CONVENTION_DATE") AND CONVENTION_DATE == date("Y-m-d") ) OR (isset($_GET["c"]) AND isset($_GET["c"]) == "1" ) OR isset($_GET["t"]) ) {
   ?><h2>Pågående</h2>
   <?php 
-  global $current_time;
-  show_activities("WHERE ut.end_time > CAST('" . $current_time . "' AS TIME) AND ut.start_time <= CAST('" . $current_time . "' AS TIME)"); 
+  show_activities(1);
   ?><h2>Kommande</h2>
-  <?php show_activities("WHERE ut.start_time > CAST('" . $current_time . "' AS TIME)"); 
+  <?php show_activities(2);
 } else {
   ?><h2>Schema</h2>
-  <?php show_activities(); 
+  <?php show_activities(0);
 }
 
 ?>
