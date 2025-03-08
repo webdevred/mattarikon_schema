@@ -21,11 +21,11 @@
   <?php if(isset($_SESSION["current_user"])) { ?>
     <span class="admin-bar">
     Current user: <?php  echo $_SESSION["current_user"]->username; ?> 
-    | <a href="edit_activity.php">Lägg till ny aktivitet</a> 
-        | <a href="create_notification.php">Lägg till ny notis</a>
-    | <a href="list_activities.php">Lista alla aktiviteter (för debug)</a>
-      | <a href="delete_notification.php">Ta bort notis</a>
-    | <a href="logout.php">Logga ut</a>
+    | <a href="edit_activity">Lägg till ny aktivitet</a> 
+        | <a href="create_notification">Lägg till ny notis</a>
+    | <a href="list_activities">Lista alla aktiviteter (för debug)</a>
+      | <a href="delete_notification">Ta bort notis</a>
+    | <a href="logout">Logga ut</a>
     </span><?php } 
   
   $sql = "SELECT message FROM notifications WHERE expiration_time > CAST('" . $current_time ."' AS TIME)";

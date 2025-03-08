@@ -3,7 +3,7 @@
 $activities = [];
 $qry = list_activities();
 while( $activity = $qry->fetch_object() ) {
-    $activities = [
+    $activities[] = [
     'id' => $activity->id,
     'name' => $activity->name,
     'type' => $activity->type,
