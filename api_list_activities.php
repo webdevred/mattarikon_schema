@@ -19,4 +19,6 @@ while( $activity = $qry->fetch_object() ) {
     'type_rownumber' => $activity->type_rownumber];
 }
 
+header('Content-Type: application/json; charset=utf-8');
 echo json_encode($activities);
+
