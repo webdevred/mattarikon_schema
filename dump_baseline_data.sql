@@ -7,7 +7,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
-
+INSERT INTO `activity_types` (`name`, `icon_filename`, `display_name`) VALUES('MUSIC', 'musik.png', 'Musik');
+INSERT INTO `activity_types` (`name`, `icon_filename`, `display_name`) VALUES('CREATIVE', 'palett.png', 'Måla');
+INSERT INTO `activity_types` (`name`, `icon_filename`, `display_name`) VALUES('PUZZLE', 'pyssel.png', 'Pyssel');
+INSERT INTO `activity_types` (`name`, `icon_filename`, `display_name`) VALUES('SEWING', 'workshop-sy.png', 'Sy');
 INSERT INTO `activity_types` (`name`, `icon_filename`, `display_name`) VALUES('ALERT', 'alarm.png', 'Alarm');
 INSERT INTO `activity_types` (`name`, `icon_filename`, `display_name`) VALUES('BOARDGAME', 'spel.png', 'Spel');
 INSERT INTO `activity_types` (`name`, `icon_filename`, `display_name`) VALUES('COMPETITION', 'tavling.png', 'Tävling');
