@@ -1,0 +1,11 @@
+PINK="\e[38;5;219m"
+RESET="\e[0m"
+
+# \H for hostname
+# \w for the current working directory
+
+PS1="\[\e]2;\H:\w\a\]${PINK}\H:\w\$${RESET} "
+
+export TERM=xterm-256color
+export EDITOR="/usr/bin/vi"
+
