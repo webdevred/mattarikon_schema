@@ -9,3 +9,13 @@ PS1="\[\e]2;\H:\w\a\]${PINK}\H:\w\$${RESET} "
 export TERM=xterm-256color
 export EDITOR="/usr/bin/vi"
 
+
+sm () {
+	dir="$(pwd)"
+	sm_script="$dir/tools/sm.py"
+	if [ -f "$sm_script" ]; then
+		python3 tools/sm.py
+	else
+		echo "sm tool not found"
+	fi
+}
