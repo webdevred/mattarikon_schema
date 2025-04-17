@@ -17,9 +17,8 @@ body {
 }
 
 header img {
-    height: 150px; 
+    height: 90px; 
     display: block;
-    margin-bottom: 2rem;
 }
 
  #clock {
@@ -28,7 +27,7 @@ header img {
 }
 
 .on-monitor #clock {
-    font-size: 60pt;
+    font-size: 30pt;
     position: absolute;
     right: 25px;
     top: 25px;
@@ -50,7 +49,7 @@ h2, h3,h4 {
 }
 
 div#page {
-    max-width: 1200px;
+    max-width: 1500px;
     margin: 2rem auto;
     padding: 1rem 2rem;
     border-radius: 1rem;
@@ -67,7 +66,7 @@ fieldset label, fieldset input:not([type="checkbox"]), fieldset select, fieldset
     flex:  0 1 50%;
 }
 
-.desktop-only-heading {
+.desktop-only-heading, .monitor-only-heading {
     display: none;
     margin: 0;
 }
@@ -79,12 +78,29 @@ fieldset label, fieldset input:not([type="checkbox"]), fieldset select, fieldset
     #links {
         margin-top: 2rem;
     }
-
+    
     .activity-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1.5rem 2rem;
     }
+
+    .on-monitor .page-container {
+        display: flex;
+    }
+    .on-monitor .page-container .fullday-activities {
+        flex: 33% 0 0;
+    }
+
+    .on-monitor .page-container .fullday-activities  .activity-container {
+        margin-bottom: 2em;
+    }
+
+    .on-monitor .monitor-only-heading {
+        display: block;
+        margin-bottom: 2em;
+    }
+        
     
     .desktop-only-heading {
         display: block;
@@ -135,13 +151,30 @@ fieldset label, fieldset input:not([type="checkbox"]), fieldset select, fieldset
     section.activity.grid-start-15 {
         grid-row-start: 15;
     }
-    
+    section.activity.grid-start-16 {
+        grid-row-start: 16;
+    }
+    section.activity.grid-start-17 {
+        grid-row-start: 17;
+    }
+    section.activity.grid-start-18 {
+        grid-row-start: 18;
+    }
+
     section.activity {
         grid-column-start: 2;
     }
     
     section.activity-movie {
         grid-column-start: 1;
+    }
+
+    section.activity-fullday {
+        grid-column-start: 3;
+    }
+
+    section.activity-hide {
+        display: none;
     }
 }
 
@@ -156,6 +189,15 @@ section.activity {
 section.activity img {
     float: right;
     width: 3rem;
+}
+
+.activities section.activity p.break {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;              /* Number of lines before truncating */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4em;
 }
 
 #links a {

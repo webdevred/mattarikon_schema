@@ -31,4 +31,4 @@
     ?><div class="notification"><img src="icons/notifiering.png" /><?php echo $notification->message; ?></div>
   <?php } ?>
 </header>
-<div>
+<div class="page-container">
