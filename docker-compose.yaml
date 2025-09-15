@@ -1,0 +1,37 @@
+services:
+  schema:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: php-api
+    volumes: [./:/var/www/html]
+    environment:
+      DATABASE_HOSTNAME: mysql
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: root
+      DATABASE_NAME: app_db
+    ports: [8080:80]
+    depends_on:
+      mysql:
+        condition: service_healthy
+    profiles: [dev]
+  mysql:
+    image: mariadb:10.6.23-jammy
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    healthcheck:
+      test: [CMD, mysqladmin, ping, -h, localhost, -uroot, -proot]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app_db
+    ports: [3306:3306]
+    volumes: [db_data:/var/lib/mysql]
+    profiles: [dev]
+
+volumes:
+  db_data:
