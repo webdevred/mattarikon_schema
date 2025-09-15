@@ -1,3 +1,5 @@
+# -*- mode: sh -*-
+
 PINK="\e[38;5;219m"
 RESET="\e[0m"
 
