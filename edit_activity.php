@@ -4,11 +4,11 @@ if( ! isset($_SESSION["current_user"])) {
     echo "oh no site broken =/";
 } else {
 
-list($activity_id, $name, $type, $responsible_staff, $summary, $room, $start_time, $end_time) = ["", "", "", "", "", "", "08:00", "10:00" ];
+list($activity_id, $name, $type, $responsible_staff, $summary, $room, $explicit, $start_time, $end_time) = ["", "", "", "", "", "", "",  "08:00", "10:00" ];
 
 if( isset($_GET["activity_id"] )) {
     $stmt = $conn->prepare("SELECT a.id as activity_id, a.name, a.type, a.responsible_staff, a.summary, 
-                          room, 
+                          room, explicit,
                           TIME_FORMAT(t.start_time, '%H:%i') AS start_Time,
                           TIME_FORMAT(t.end_time, '%H:%i') AS end_time
                           FROM activities AS a
@@ -16,7 +16,7 @@ if( isset($_GET["activity_id"] )) {
                           WHERE a.id = ? ORDER BY t.timestamp LIMIT 1;");
     $stmt->bind_param("i", $_GET["activity_id"]);
     $stmt->execute();
-    $stmt->bind_result($activity_id, $name, $type, $responsible_staff, $summary, $room, $start_time, $end_time);
+    $stmt->bind_result($activity_id, $name, $type, $responsible_staff, $summary, $room, $explicit, $start_time, $end_time);
     $stmt->fetch();
     $stmt->close();
 }
@@ -62,6 +62,10 @@ if( isset($_GET["activity_id"] )) {
   <fieldset>
       <label for="end-time">Sluttid?</label>
       <input id="end-time" name="end_time" value="<?php echo $end_time; ?>">
+  </fieldset>
+  <fieldset>
+      <label for="explicit">18 plus?</label>
+      <input type="checkbox" id="explicit" name="explicit" <? echo $explicit ? " checked " : ""; ?>>
   </fieldset>
   <?php if(! empty($activity_id)) { ?>
   <fieldset>

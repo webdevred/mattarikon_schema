@@ -15,14 +15,15 @@ $room = $_POST["room"];
 $responsible_staff = $_POST["responsible_staff"];
 $summary = $_POST["summary"];
 $type = $_POST["type"];
+$explicit = (int) ! empty($_POST["explicit"]);
 
 $start_time = sprintf("%s:00", $_POST["start_time"]);
 $end_time = sprintf("%s:00", $_POST["end_time"]);
 
 $activity_id = null;
 if(empty($_POST["activity_id"])) {
-    $stmt = $conn->prepare("INSERT INTO activities (name, type, responsible_staff, summary) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $name, $type, $responsible_staff, $summary);
+    $stmt = $conn->prepare("INSERT INTO activities (name, type, responsible_staff, summary, explicit) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssi", $name, $type, $responsible_staff, $summary, $explicit);
     $stmt->execute();
     $activity_id = $conn->insert_id;
   
@@ -32,8 +33,8 @@ if(empty($_POST["activity_id"])) {
 } else {
     $activity_id = $_POST["activity_id"];
    
-    $stmt = $conn->prepare("UPDATE activities SET name = ?, type = ?, responsible_staff = ?, summary = ? WHERE id = ?;");
-    $stmt->bind_param("ssssi", $name, $type, $responsible_staff, $summary, $activity_id );
+    $stmt = $conn->prepare("UPDATE activities SET name = ?, type = ?, responsible_staff = ?, summary = ?, explicit = ? WHERE id = ?;");
+    $stmt->bind_param("ssssii", $name, $type, $responsible_staff, $summary, $explicit, $activity_id);
     $stmt->execute();
    
     $stmt = $conn->prepare("INSERT INTO activities_time_and_place (activity_id, room, start_time, end_time) VALUES (?, ?, ?, ?)");

@@ -7,6 +7,7 @@ function objToAssoc($activity) {
             'responsible_staff' => $activity->responsible_staff,
             'summary' => $activity->summary,
             'room' => $activity->room,
+            'explicit' => ! empty ($activity->explicit),
             'updated_start_time' => $activity->updated_start_time,
             'updated_end_time' => $activity->updated_end_time,
             'outdated_start_time' => $activity->outdated_start_time,

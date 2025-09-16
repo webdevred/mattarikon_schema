@@ -45,6 +45,9 @@ foreach($activities as $activity) {
         <?php if(isset($_SESSION["current_user"])) { ?><a href="edit_activity.php?activity_id=<?php echo $activity->id; ?>">Redigera aktivitet</a><br><?php } ?>
         <strong>Värd:</strong> <?php echo $activity->responsible_staff; ?>
         <br />
+<?php if ($activity->explicit) { ?>
+        <strong style="color: red;">OBS! Ej lämpat för barn. Åldersgräns 18+</strong>
+<?php } ?>
     </section>
    <?php } ?>
   </div><?php

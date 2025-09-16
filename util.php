@@ -58,7 +58,7 @@ function list_activities($filter = 0) {
        `activities_time_and_place`)
         SELECT 
               a.id, a.name, a.type, a.responsible_staff, a.summary,
-              ut.room,
+              ut.room, a.explicit,
               TIME_FORMAT(ut.start_time, '%H:%i') AS updated_start_time,
               TIME_FORMAT(ut.end_time, '%H:%i') AS updated_end_time,
               TIME_FORMAT(ot.start_time, '%H:%i') AS outdated_start_time,
