@@ -26,12 +26,13 @@ foreach($activities as $activity) {
    $start_time_datetime = new DateTime($activity->updated_start_time);
    $end_time_datetime = new DateTime($activity->updated_end_time);
    $duration = $end_time_datetime->diff($start_time_datetime)->format("%H") * 60 + $end_time_datetime->diff($start_time_datetime)->format("%i");
+   $grid_start_class = 'grid-start-' . $activity->type_rownumber + 2;
+   if($filter != 0) {
    if($activity->activity_column == 'FULLDAY' and $activity->type_rownumber >= $group_index) {
        $grid_start_class = 'grid-start-' . $activity->type_rownumber + (int) $group_index;
    } elseif($activity->activity_column == 'FULLDAY') {
        $grid_start_class = 'activity-hide';       
-   } else {
-       $grid_start_class = 'grid-start-' . $activity->type_rownumber + 2;
+   }
    }
    ?>
     <section class="activity <?php echo $grid_start_class; ?> activity-<?php echo strtolower($activity->activity_column); ?>">
