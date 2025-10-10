@@ -26,16 +26,16 @@ foreach($activities as $activity) {
    $start_time_datetime = new DateTime($activity->updated_start_time);
    $end_time_datetime = new DateTime($activity->updated_end_time);
    $duration = $end_time_datetime->diff($start_time_datetime)->format("%H") * 60 + $end_time_datetime->diff($start_time_datetime)->format("%i");
-   $grid_start_class = 'grid-start-' . $activity->type_rownumber + 2;
+   $style = '--row: ' . $activity->type_rownumber + 2 . ';';
    if($filter != 0) {
    if($activity->activity_column == 'FULLDAY' and $activity->type_rownumber >= $group_index) {
-       $grid_start_class = 'grid-start-' . $activity->type_rownumber + (int) $group_index;
+       $style = '--row: ' . $activity->type_rownumber + (int) $group_index . ';';
    } elseif($activity->activity_column == 'FULLDAY') {
-       $grid_start_class = 'activity-hide';       
+       $style = 'display: none;';
    }
    }
    ?>
-    <section class="activity <?php echo $grid_start_class; ?> activity-<?php echo strtolower($activity->activity_column); ?>">
+    <section style="<? echo $style; ?>" class="activity activity-<?php echo strtolower($activity->activity_column); ?>">
         <img src="icons/<?php echo $activity->icon_filename; ?>" />
         <span class="time"><?php echo sprintf("%s - %s (%d min)", $activity->updated_start_time, $activity->updated_end_time, $duration); ?></span> i <strong><?php echo $activity->room; ?></strong>
         <?php if( !empty($activity->outdated_start_time)) {

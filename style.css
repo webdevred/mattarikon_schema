@@ -105,63 +105,9 @@ fieldset label, fieldset input:not([type="checkbox"]), fieldset select, fieldset
     .desktop-only-heading {
         display: block;
     }
-    
-    section.activity.grid-start-1 {
-        grid-row-start: 1;
-    }
-    section.activity.grid-start-2 {
-        grid-row-start: 2;
-    }
-    section.activity.grid-start-3 {
-        grid-row-start: 3;
-    }
-    section.activity.grid-start-4 {
-        grid-row-start: 4;
-    }
-    section.activity.grid-start-5 {
-        grid-row-start: 5;
-    }
-    section.activity.grid-start-6 {
-        grid-row-start: 6;
-    }
-    section.activity.grid-start-7 {
-        grid-row-start: 7;
-    }
-    section.activity.grid-start-8 {
-        grid-row-start: 8;
-    }
-    section.activity.grid-start-9 {
-        grid-row-start: 9;
-    }
-    section.activity.grid-start-10 {
-        grid-row-start: 10;
-    }
-    section.activity.grid-start-11 {
-        grid-row-start: 11;
-    }
-    section.activity.grid-start-12 {
-        grid-row-start: 12;
-    }
-    section.activity.grid-start-13 {
-        grid-row-start: 13;
-    }
-    section.activity.grid-start-14 {
-        grid-row-start: 14;
-    }
-    section.activity.grid-start-15 {
-        grid-row-start: 15;
-    }
-    section.activity.grid-start-16 {
-        grid-row-start: 16;
-    }
-    section.activity.grid-start-17 {
-        grid-row-start: 17;
-    }
-    section.activity.grid-start-18 {
-        grid-row-start: 18;
-    }
 
     section.activity {
+        grid-row-start: var(--row);
         grid-column-start: 2;
     }
     
