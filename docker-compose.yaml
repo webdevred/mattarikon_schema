@@ -27,6 +27,7 @@ services:
         condition: service_healthy
     volumes: [./:/var/www/html]
     environment:
+      VERBOSE_SQL: false
       DATABASE_HOSTNAME: mysql
       DATABASE_USERNAME: root
       DATABASE_PASSWORD: root

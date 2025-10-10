@@ -10,6 +10,13 @@ EOF
 
 cnt=$(mysql --skip-ssl-verify-server-cert -sN -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '$DATABASE_NAME';")
 
+if [[ "$VERBOSE_SQL" == "true" ]]; then
+  cat >>~/.my.cnf <<EOF
+[mysql]
+verbose
+EOF
+fi
+
 echo "$DATABASE_NAME has $cnt tables"
 
 if ! [[ "${cnt}" =~ ^[0-9]+$ ]]; then
