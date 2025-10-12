@@ -9,6 +9,6 @@ define("USERNAME", "${DATABASE_USERNAME}");
 define("PASSWORD", "${DATABASE_PASSWORD}");
 define("DATABASE_NAME", "${DATABASE_NAME}");
 
-define("CONVENTION_DATE", "2025-04-19");
+define('CONVENTION_DATE', '2025-04-19');
 
 ?>

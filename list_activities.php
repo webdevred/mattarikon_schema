@@ -4,7 +4,11 @@ if( ! isset($_SESSION["current_user"])) {
     echo "oh no site broken =/";
 } else {
     ?><form method="POST" action="list_activities_action.php"><table>
-        <button type="submit">Ta bort markerade akiviteter som har ikryssad checkbox (du kan kryssa i checkboxen i listan)</button>
+        <button type="submit" name="delete_activities">Ta bort markerade akiviteter som har ikryssad checkbox (du kan kryssa i checkboxen i listan)</button>
+        <button type="submit" name="update_date">Uppdatera datum (du kan välja datum vid datum texten)</button>
+        <fieldset>
+          <label for="date">Datum?</label><input value="<?php echo CONVENTION_DATE; ?>" id="date" name="date" type="date">
+        </fieldset>
       <tr>
           <td></td>
           <th>ID</th>
