@@ -128,19 +128,6 @@ fieldset textarea {
     }
 }
 
-@media print {
-    @page {
-        margin: 0 0.5mm;
-    }
-    #links {
-        display: none;
-    }
-    section.activity {
-        grid-column-start: var(--printing-column) !important;
-        grid-row-start: var(--printing-row) !important;
-    }
-}
-
 section.activity {
     padding: 1rem;
     background-color: #fff;
@@ -228,5 +215,25 @@ fieldset input {
 @media (max-width: 400px) {
     html {
         font-size: 105%;
+    }
+}
+
+@media print and (orientation: portrait) {
+    html {
+        font-size: 120%;
+    }
+}
+
+@media print {
+    @page {
+        margin: 0 0.5mm;
+    }
+    #links {
+        display: none;
+    }
+    section.activity {
+        break-inside: avoid-page;
+        grid-column-start: var(--printing-column) !important;
+        grid-row-start: var(--printing-row) !important;
     }
 }
