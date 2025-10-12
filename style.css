@@ -107,7 +107,7 @@ fieldset label, fieldset input:not([type="checkbox"]), fieldset select, fieldset
     }
 
     section.activity {
-        grid-row-start: var(--row);
+        grid-row-start: var(--layout-row);
         grid-column-start: 2;
     }
     
@@ -124,6 +124,19 @@ fieldset label, fieldset input:not([type="checkbox"]), fieldset select, fieldset
     }
 }
 
+ @media print {
+     @page {
+         margin: 0 0.5mm;
+     }
+     #links {
+         display: none;
+     }
+     section.activity {
+         grid-column-start: var(--printing-column) !important;
+         grid-row-start: var(--printing-row) !important;
+     }
+}
+ 
 section.activity {
     padding: 1rem;
     background-color: #fff;

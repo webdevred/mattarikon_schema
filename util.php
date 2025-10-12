@@ -65,7 +65,9 @@ function list_activities($filter = 0) {
               TIME_FORMAT(ot.end_time, '%H:%i') AS outdated_end_time,
               at.icon_filename, at.display_name AS type_name,
               IF(type = 'MOVIE', 'MOVIE', " . $monitor_column . ") AS activity_column,
-              ROW_NUMBER() OVER (PARTITION BY type = 'MOVIE' ORDER BY updated_start_time) as type_rownumber
+              ROW_NUMBER() OVER (PARTITION BY type = 'MOVIE' ORDER BY updated_start_time) as type_rownumber,
+              CEIL(ROW_NUMBER() OVER (ORDER BY updated_start_time) / 2) AS printing_rownumber,
+              (ROW_NUMBER() OVER (ORDER BY updated_start_time) % 2 = 0) AS printing_columnnumber
               FROM activities AS a
               INNER JOIN activity_types AS at ON a.type = at.name
               INNER JOIN time_and_place_ids AS ti ON a.id = ti.activity_id 
