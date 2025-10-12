@@ -1,4 +1,4 @@
-name: Mattarikon schema Docker development setup
+name: mattarikon-schema
 
 services:
   mysql:
@@ -21,7 +21,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    container_name: php-api
+    container_name: app
     depends_on:
       mysql:
         condition: service_healthy
