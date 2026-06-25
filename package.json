@@ -6,7 +6,7 @@
     "test:watch": "vitest",
     "lint": "eslint schedule.js schedule-utils.js",
     "format:js": "js-beautify --config .jsbeautifyrc -r schedule.js schedule-utils.js",
-    "format:css": "css-beautify --config .jsbeautifyrc -r style.css"
+    "format:css": "css-beautify --config .cssbeautifyrc -r style.css"
   },
   "devDependencies": {
     "@eslint/js": "^9.0.0",
