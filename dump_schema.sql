@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `activities` (
   `type` varchar(30) NOT NULL,
   `responsible_staff` varchar(255) NOT NULL,
   `summary` text NOT NULL,
-  `explicit` tinyint,
+  `explicit` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `type` (`type`)

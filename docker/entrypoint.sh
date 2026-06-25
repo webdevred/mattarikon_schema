@@ -35,6 +35,11 @@ if ! [[ "$cnt" -gt 0 ]]; then
   mysql --skip-ssl-verify-server-cert "$DATABASE_NAME" < ./dump_schema.sql
 
   mysql --skip-ssl-verify-server-cert "$DATABASE_NAME" < ./dump_baseline_data.sql
+
+  if [ -f ./dump_dev_data.sql ]; then
+    echo "inserting dev data"
+    mysql --skip-ssl-verify-server-cert "$DATABASE_NAME" < ./dump_dev_data.sql
+  fi
 fi
 
 docker-php-entrypoint apache2-foreground

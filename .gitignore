@@ -3,3 +3,5 @@
 **/#*#
 **/.#*
 config.php
+dump_dev_data.sql
+node_modules/
