@@ -2,7 +2,7 @@
 
 if( ! isset($_SESSION["current_user"])) {
     echo "oh no site broken =/";
-} else {
+} else { 
 
 list($activity_id, $name, $type, $responsible_staff, $summary, $room, $explicit, $start_time, $end_time) = ["", "", "", "", "", "", "",  "08:00", "10:00" ];
 

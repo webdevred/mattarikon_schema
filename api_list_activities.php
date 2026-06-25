@@ -14,6 +14,7 @@ function objToAssoc($activity) {
             'outdated_end_time' => $activity->outdated_end_time,
             'icon_filename' => $activity->icon_filename,
             'type_name' => $activity->type_name,
+            'activity_column' => $activity->activity_column,
             'type_rownumber' => $activity->type_rownumber];
 }
 
@@ -28,19 +29,25 @@ if( ! defined("CONVENTION_DATE") OR ( defined("CONVENTION_DATE") AND CONVENTION_
     while( $activity = $current_activity_qry->fetch_object() ) {
         $data["current"][] = objToAssoc($activity);
     }
-    
+
     $coming_activity_qry = list_activities(2);
     while( $activity = $coming_activity_qry->fetch_object() ) {
         $data["coming"][] = objToAssoc($activity);
     }
-
-    echo json_encode(["data" => $data]);
 } else {
-    $activities = [];
-    $qry = list_activities();
+    $data = ["activities" => []];
+    $qry = list_activities(0);
     while( $activity = $qry->fetch_object() ) {
-        $activities[] = objToAssoc($activity);        
+        $data["activities"][] = objToAssoc($activity);
     }
-
-    echo json_encode(["data" => ["activities" => $activities]]);
 }
+
+if (isset($_GET["m"]) && $_GET["m"] == "1") {
+    $data["fullday"] = [];
+    $fullday_qry = list_activities(3);
+    while( $activity = $fullday_qry->fetch_object() ) {
+        $data["fullday"][] = objToAssoc($activity);
+    }
+}
+
+echo json_encode(["data" => $data]);

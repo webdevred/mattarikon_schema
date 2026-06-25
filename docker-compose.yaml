@@ -32,7 +32,7 @@ services:
       DATABASE_USERNAME: root
       DATABASE_PASSWORD: root
       DATABASE_NAME: app_db
-    ports: [127.0.0.1:8080:80]
+    ports: [127.0.0.1:8081:80]
     profiles: [dev]
 
 volumes:
