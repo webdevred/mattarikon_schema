@@ -41,7 +41,9 @@ export function renderActivity(activity, groupIndex, isLoggedIn) {
   const col = (activity.activity_column ?? "other").toLowerCase();
   const cls = gridClass(activity, groupIndex);
 
-  let html = `<section class="activity ${cls} activity-${col}">`;
+  const printRow = parseInt(activity.printing_rownumber, 10) + 2;
+  const printCol = parseInt(activity.printing_columnnumber, 10);
+  let html = `<section class="activity ${cls} activity-${col}" style="--printing-row: ${printRow}; --printing-column: ${printCol};">`;
   html += `<img src="icons/${escapeHtml(activity.icon_filename)}" />`;
   html += `<span class="time">${escapeHtml(activity.updated_start_time)} - ${escapeHtml(activity.updated_end_time)} (${duration} min)</span>`;
   html += ` i <strong>${escapeHtml(activity.room)}</strong>`;

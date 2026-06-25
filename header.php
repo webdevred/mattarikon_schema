@@ -23,12 +23,11 @@
     | <a href="logout">Logga ut</a>
     </span><?php } 
   
+  <div id="notifications"><?php
   $sql = "SELECT message FROM notifications WHERE expiration_time > CAST('" . $current_time ."' AS TIME)";
   $query = $conn->query($sql);
-  
-  
-  while($notification = $query->fetch_object()) { 
+  while($notification = $query->fetch_object()) {
     ?><div class="notification"><img src="icons/notifiering.png" /><?php echo $notification->message; ?></div>
-  <?php } ?>
+  <?php } ?></div>
 </header>
 <div class="page-container">

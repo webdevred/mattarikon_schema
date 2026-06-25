@@ -106,6 +106,8 @@ const baseActivity = {
   icon_filename: "lecture.png",
   activity_column: "LECTURE",
   type_rownumber: "1",
+  printing_rownumber: "0",
+  printing_columnnumber: "0",
 };
 
 describe("renderActivity", () => {
@@ -172,5 +174,11 @@ describe("renderActivity", () => {
   it("handles null activity_column gracefully", () => {
     const activity = { ...baseActivity, activity_column: null };
     expect(() => renderActivity(activity, 0, false)).not.toThrow();
+  });
+  it("sets print CSS variables on section", () => {
+    const activity = { ...baseActivity, printing_rownumber: "2", printing_columnnumber: "1" };
+    const html = renderActivity(activity, 0, false);
+    expect(html).toContain("--printing-row: 4");
+    expect(html).toContain("--printing-column: 1");
   });
 });

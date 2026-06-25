@@ -15,7 +15,9 @@ function objToAssoc($activity) {
             'icon_filename' => $activity->icon_filename,
             'type_name' => $activity->type_name,
             'activity_column' => $activity->activity_column,
-            'type_rownumber' => $activity->type_rownumber];
+            'type_rownumber' => $activity->type_rownumber,
+            'printing_rownumber' => $activity->printing_rownumber,
+            'printing_columnnumber' => $activity->printing_columnnumber];
 }
 
 header('Content-Type: application/json; charset=utf-8');

@@ -24,6 +24,22 @@ function currentMinute() {
   return parseInt(time.split(":")[1], 10);
 }
 
+function currentTime() {
+  return timeOverride ?? new Date().toLocaleTimeString("sv-SE", {
+    timeZone: "Europe/Stockholm",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+}
+
+function updateClock() {
+  const clockEl = document.getElementById("clock");
+  if (clockEl && !timeOverride) {
+    clockEl.textContent = currentTime();
+  }
+}
+
 function renderActivityContainer(activities, { withHeadings = false, isLoggedIn = false } = {}) {
   const groupIndex = computeGroupIndex(activities, currentMinute());
   let html = `<div class="activity-container">`;
@@ -58,17 +74,48 @@ function renderActivities(data, isLoggedIn) {
     const fulldayEl = document.getElementById("fullday-activities");
     fulldayEl.innerHTML = renderActivityContainer(data.fullday, { isLoggedIn });
   }
+
+  window.dispatchEvent(new Event("resize"));
+}
+
+async function loadNotifications() {
+  const notifQuery = timeOverride ? `?t=${encodeURIComponent(timeOverride)}` : "";
+  const response = await fetch(`api_notifications${notifQuery}`);
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  const { notifications } = await response.json();
+  const el = document.getElementById("notifications");
+  if (!el) return;
+  el.innerHTML = notifications
+    .map((msg) => `<div class="notification"><img src="icons/notifiering.png" />${msg}</div>`)
+    .join("");
+}
+
+async function loadSchedule(isLoggedIn) {
+  const response = await fetch(`api_list_activities${apiQuery}`);
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  const { data } = await response.json();
+  renderActivities(data, isLoggedIn);
 }
 
 (async () => {
+  const isLoggedIn = document.getElementById("activities").dataset.loggedIn === "1";
+
   try {
-    const response = await fetch(`api_list_activities${apiQuery}`);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const { data } = await response.json();
-    const isLoggedIn = document.getElementById("activities").dataset.loggedIn === "1";
-    renderActivities(data, isLoggedIn);
+    await Promise.all([loadSchedule(isLoggedIn), loadNotifications()]);
   } catch (err) {
     console.error("Failed to load activities:", err);
     document.getElementById("activities").innerHTML = "<p>Kunde inte ladda schemat.</p>";
   }
+
+  updateClock();
+  setInterval(updateClock, 60000);
+
+  setInterval(async () => {
+    try {
+      await Promise.all([loadSchedule(isLoggedIn), loadNotifications()]);
+      updateClock();
+    } catch (err) {
+      console.error("Failed to reload:", err);
+    }
+  }, 60000);
 })();
