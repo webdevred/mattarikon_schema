@@ -1,5 +1,3 @@
-setTimeout(function() { window.location.reload(); }, 60000);
-
 let urlParams = new URL(window.location).searchParams;
 let beingDisplayedOnMonitor = urlParams.get("m") == "1";
 if(beingDisplayedOnMonitor) {
