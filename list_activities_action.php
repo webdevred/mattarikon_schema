@@ -15,11 +15,15 @@ foreach($_POST["delete_activity"] as $activity_id => $checked) {
     }
 }
 } elseif (isset($_POST["update_date"])) {
+$date = $_POST["date"];
+if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
+    die("invalid date");
+}
 $filename = 'config.php';
 $file = fopen($filename, 'r');
 $code = fread($file,filesize($filename));
 $pattern = "/(define\s*\(\s*'CONVENTION_DATE'\s*,\s*')[^']*('\s*\)\s*;)/";
-$new_code = preg_replace($pattern, '${1}' . $_POST["date"] . '${2}', $code);
+$new_code = preg_replace($pattern, '${1}' . $date . '${2}', $code);
 file_put_contents($filename, $new_code);
 }
 
