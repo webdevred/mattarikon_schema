@@ -36,7 +36,10 @@ if ! [[ "$cnt" -gt 0 ]]; then
 
   mysql --skip-ssl-verify-server-cert "$DATABASE_NAME" < ./dump_baseline_data.sql
 
-  if [ -f ./dump_dev_data.sql ]; then
+  if [ -f ./dump_dev_data_local.sql ]; then
+    echo "inserting local dev data"
+    mysql --skip-ssl-verify-server-cert "$DATABASE_NAME" < ./dump_dev_data_local.sql
+  else
     echo "inserting dev data"
     mysql --skip-ssl-verify-server-cert "$DATABASE_NAME" < ./dump_dev_data.sql
   fi
