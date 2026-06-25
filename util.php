@@ -6,10 +6,10 @@ if (session_status() === PHP_SESSION_NONE) {
 require("config.php");
 $minute = "";
 $datetime = new DateTime(null, new DateTimeZone("Europe/Stockholm"));
-if( ! isset($_GET["t"])) {
-    $current_time = $datetime->format("H:i");
-} else {
+if( isset($_GET["t"]) && preg_match('/^\d{2}:\d{2}$/', $_GET["t"])) {
     $current_time = $_GET["t"];
+} else {
+    $current_time = $datetime->format("H:i");
 }
 
 $minute = substr($current_time, 3, 2);
