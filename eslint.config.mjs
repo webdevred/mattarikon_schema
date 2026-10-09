@@ -14,6 +14,9 @@ export default defineConfig([
         console: "readonly",
         URLSearchParams: "readonly",
         Date: "readonly",
+        Event: "readonly",
+        setInterval: "readonly",
+        setTimeout: "readonly",
       },
     },
     rules: {
