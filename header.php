@@ -21,8 +21,7 @@
     | <a href="list_activities">Lista alla aktiviteter (för debug)</a>
       | <a href="delete_notification">Ta bort notis</a>
     | <a href="logout">Logga ut</a>
-    </span><?php } 
-  
+    </span><?php } ?>
   <div id="notifications"><?php
   $sql = "SELECT message FROM notifications WHERE expiration_time > CAST('" . $current_time ."' AS TIME)";
   $query = $conn->query($sql);
