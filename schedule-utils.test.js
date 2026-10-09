@@ -4,6 +4,7 @@ import {
   calcDuration,
   gridClass,
   computeGroupIndex,
+  pickOnePerColumn,
   renderActivity,
 } from "./schedule-utils.js";
 
@@ -88,6 +89,31 @@ describe("computeGroupIndex", () => {
     ];
     const withOnly = [{ activity_column: "FULLDAY", type_rownumber: "1" }];
     expect(computeGroupIndex(mixed, 30)).toBe(computeGroupIndex(withOnly, 30));
+  });
+});
+
+const film = (name) => ({ name, activity_column: "MOVIE" });
+const other = (name) => ({ name, activity_column: "ACTIVITY" });
+
+describe("pickOnePerColumn", () => {
+  it("shows every overlapping film once over as many turns as there are films", () => {
+    const films = [film("A"), film("B"), film("C")];
+    const shown = [7, 8, 9].map((turn) => pickOnePerColumn(films, turn)[0].name);
+    expect(shown.sort()).toEqual(["A", "B", "C"]);
+  });
+  it("picks one film and one activity when both columns overlap", () => {
+    const ongoing = [other("X"), film("A"), other("Y"), film("B"), other("Z")];
+    const columns = pickOnePerColumn(ongoing, 4).map((activity) => activity.activity_column);
+    expect(columns.sort()).toEqual(["ACTIVITY", "MOVIE"]);
+  });
+  it("keeps a lone film on screen while the activities take turns", () => {
+    const ongoing = [film("A"), other("X"), other("Y"), other("Z")];
+    for (const turn of [0, 1, 2, 3, 4]) {
+      expect(pickOnePerColumn(ongoing, turn)).toContainEqual(film("A"));
+    }
+  });
+  it("returns nothing when nothing is ongoing", () => {
+    expect(pickOnePerColumn([], 3)).toEqual([]);
   });
 });
 

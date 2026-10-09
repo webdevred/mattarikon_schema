@@ -36,6 +36,15 @@ export function computeGroupIndex(activities, minute) {
   return groupIndex;
 }
 
+export function pickOnePerColumn(activities, turn) {
+  const columns = new Map();
+  for (const activity of activities) {
+    const inColumn = columns.get(activity.activity_column) ?? [];
+    columns.set(activity.activity_column, [...inColumn, activity]);
+  }
+  return [...columns.values()].map((inColumn) => inColumn[turn % inColumn.length]);
+}
+
 export function renderActivity(activity, groupIndex, isLoggedIn) {
   const duration = calcDuration(activity.updated_start_time, activity.updated_end_time);
   const col = (activity.activity_column ?? "other").toLowerCase();

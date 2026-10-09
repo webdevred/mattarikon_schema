@@ -1,9 +1,13 @@
-import { computeGroupIndex, renderActivity } from "./schedule-utils.js";
+import { computeGroupIndex, pickOnePerColumn, renderActivity } from "./schedule-utils.js";
+
+const ROTATION_INTERVAL_MS = 10000;
 
 const params = new URLSearchParams(window.location.search);
 const monitorMode = params.get("m") === "1";
 const timeOverride = params.get("t");
 const conventionOverride = params.get("c") === "1";
+
+let loadedSchedule;
 
 const apiQuery = (() => {
   const p = new URLSearchParams();
@@ -33,6 +37,14 @@ function currentTime() {
   });
 }
 
+function currentTurn() {
+  return Math.floor(Date.now() / ROTATION_INTERVAL_MS);
+}
+
+function msUntilNextTurn() {
+  return ROTATION_INTERVAL_MS - (Date.now() % ROTATION_INTERVAL_MS);
+}
+
 function updateClock() {
   const clockEl = document.getElementById("clock");
   if (clockEl && !timeOverride) {
@@ -59,8 +71,9 @@ function renderActivities(data, isLoggedIn) {
   let html = "";
 
   if (data.current !== undefined) {
+    const ongoing = monitorMode ? pickOnePerColumn(data.current, currentTurn()) : data.current;
     html += `<h2>Pågående</h2>`;
-    html += renderActivityContainer(data.current, { withHeadings: true, isLoggedIn });
+    html += renderActivityContainer(ongoing, { withHeadings: true, isLoggedIn });
     html += `<h2>Kommande</h2>`;
     html += renderActivityContainer(data.coming, { withHeadings: true, isLoggedIn });
   } else {
@@ -94,7 +107,8 @@ async function loadSchedule(isLoggedIn) {
   const response = await fetch(`api_list_activities${apiQuery}`);
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const { data } = await response.json();
-  renderActivities(data, isLoggedIn);
+  loadedSchedule = data;
+  renderActivities(loadedSchedule, isLoggedIn);
 }
 
 (async () => {
@@ -118,4 +132,12 @@ async function loadSchedule(isLoggedIn) {
       console.error("Failed to reload:", err);
     }
   }, 60000);
+
+  if (monitorMode) {
+    const showNextTurn = () => {
+      setTimeout(showNextTurn, msUntilNextTurn());
+      if (loadedSchedule) renderActivities(loadedSchedule, isLoggedIn);
+    };
+    setTimeout(showNextTurn, msUntilNextTurn());
+  }
 })();
