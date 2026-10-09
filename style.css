@@ -58,6 +58,11 @@ div#page {
     /*border: 2px outset rgb(194, 167, 231);*/
 }
 
+.on-monitor #page {
+    margin-top: 0;
+    border: none;
+}
+
 fieldset {
     display: flex;
 }
