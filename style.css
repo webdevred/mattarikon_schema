@@ -88,6 +88,7 @@ fieldset textarea {
     .activity-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        grid-auto-flow: dense;
         gap: 1.5rem 2rem;
     }
 
