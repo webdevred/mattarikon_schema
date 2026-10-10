@@ -77,7 +77,7 @@ if( isset($_GET["activity_id"] )) {
       <input type="checkbox" id="create-notification-checkbox" name="create_notification">
       <textarea disabled name="notification_message"></textarea>
   </fieldset>
-  <script src="edit_activity.js"></script>
+  <script src="js/edit_activity.js"></script>
   <?php } ?>
   <fieldset>
     <button>Spara</button>

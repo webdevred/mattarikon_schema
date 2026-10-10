@@ -19,7 +19,7 @@
 <a href="https://www.mangakai.se/hem/om-mangakai/bli-medlem">Bli medlem</a>
 <a href="https://www.mattarikon.se/">Mattarikon</a>
 <?php } ?>
-<script defer src="index.js"></script>
-<script type="module" src="schedule.js"></script>
+<script defer src="js/index.js"></script>
+<script type="module" src="js/schedule.js"></script>
 
 <?php require("footer.php") ?>

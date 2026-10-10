@@ -4,8 +4,8 @@
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "eslint schedule.js schedule-utils.js",
-    "format:js": "js-beautify --config .jsbeautifyrc -r schedule.js schedule-utils.js",
+    "lint": "eslint js",
+    "format:js": "js-beautify --config .jsbeautifyrc -r \"js/*.js\"",
     "format:css": "css-beautify --config .cssbeautifyrc -r style.css"
   },
   "devDependencies": {
