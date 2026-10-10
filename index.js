@@ -21,8 +21,10 @@ if(beingDisplayedOnMonitor) {
           const overlap = bottom - windowHeight;
           const newHeight = elementHeight - overlap;
           let description = element.querySelector("p");
-          description.style.maxHeight = newHeight / 3;
-          description.classList.add("break");
+          if(description) {
+            description.style.maxHeight = newHeight / 3;
+            description.classList.add("break");
+          }
           overflowedColumns.add(column);
         } else if( windowHeight < bottom ) {
           element.style.display = "none";
