@@ -53,7 +53,7 @@ if( isset($_GET["activity_id"] )) {
   </fieldset>
   <fieldset>
       <label for="summary">Sammanfattning?</label>
-      <textarea id="summary" name="summary"><?php echo $summary; ?></textarea>
+      <textarea id="summary" name="summary" data-warning-length="<?php echo defined('SUMMARY_WARNING_LENGTH') ? SUMMARY_WARNING_LENGTH : 300; ?>"><?php echo $summary; ?></textarea>
   </fieldset>
   <fieldset>
       <label for="start-time">Starttid?</label>
@@ -83,6 +83,7 @@ if( isset($_GET["activity_id"] )) {
     <button>Spara</button>
   </fieldset>
 </form>
+<script type="module" src="js/activity-form-warnings.js"></script>
 <?php
 
 }

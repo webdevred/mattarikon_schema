@@ -10,5 +10,6 @@ define("PASSWORD", "${DATABASE_PASSWORD}");
 define("DATABASE_NAME", "${DATABASE_NAME}");
 
 define('CONVENTION_DATE', '2025-04-19');
+define('SUMMARY_WARNING_LENGTH', 300);
 
 ?>

@@ -75,6 +75,15 @@ fieldset textarea {
     flex: 0 1 50%;
 }
 
+.form-note {
+    margin: 0.25rem 0 0.75rem;
+}
+
+.form-warning {
+    color: #f00;
+    font-weight: bold;
+}
+
 .desktop-only-heading,
 .monitor-only-heading {
     display: none;
