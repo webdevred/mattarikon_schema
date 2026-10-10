@@ -1,7 +1,7 @@
 let urlParams = new URL(window.location).searchParams;
-let beingDisplayedOnMonitor = urlParams.get("m") == "1";
+let beingDisplayedOnMonitor = urlParams.get("m") === "1";
 if(beingDisplayedOnMonitor) {
-  refresh_handler = function(e) {
+  const refresh_handler = function() {
     for(let container of document.querySelectorAll(".activity-container")) {
       const overflowedColumns = new Set();
       for(let element of container.querySelectorAll("section.activity")) {

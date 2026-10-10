@@ -12,6 +12,7 @@ export default defineConfig([
         document: "readonly",
         fetch: "readonly",
         console: "readonly",
+        URL: "readonly",
         URLSearchParams: "readonly",
         Date: "readonly",
         Event: "readonly",
