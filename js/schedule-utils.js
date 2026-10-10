@@ -42,7 +42,13 @@ export function pickOnePerColumn(activities, turn) {
     const inColumn = columns.get(activity.activity_column) ?? [];
     columns.set(activity.activity_column, [...inColumn, activity]);
   }
-  return [...columns.values()].map((inColumn) => inColumn[turn % inColumn.length]);
+  return [...columns.values()].map((inColumn) => {
+    const index = turn % inColumn.length;
+    return {
+      ...inColumn[index],
+      rotation: inColumn.length > 1 ? { position: index + 1, count: inColumn.length } : undefined,
+    };
+  });
 }
 
 export function renderActivity(activity, groupIndex, isLoggedIn) {
@@ -54,6 +60,10 @@ export function renderActivity(activity, groupIndex, isLoggedIn) {
   const printCol = parseInt(activity.printing_columnnumber, 10);
   let html = `<section class="activity ${cls} activity-${col}" style="--printing-row: ${printRow}; --printing-column: ${printCol};">`;
   html += `<img src="icons/${escapeHtml(activity.icon_filename)}" />`;
+  if (activity.rotation) {
+    html += `<span class="rotation"><img src="icons/rotation.svg" alt="Visas i tur och ordning med andra pågående" />`;
+    html += `${activity.rotation.position}/${activity.rotation.count}</span>`;
+  }
   html += `<span class="time">${escapeHtml(activity.updated_start_time)} - ${escapeHtml(activity.updated_end_time)} (${duration} min)</span>`;
   html += ` i <strong>${escapeHtml(activity.room)}</strong>`;
 

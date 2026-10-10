@@ -149,6 +149,21 @@ section.activity img {
     width: 3rem;
 }
 
+section.activity .rotation {
+    float: right;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0.5rem 0.75rem 0 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+section.activity .rotation img {
+    float: none;
+    width: 2rem;
+}
+
 .activities section.activity p.break {
     display: -webkit-box;
     /* Number of lines before truncating */

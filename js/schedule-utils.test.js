@@ -109,8 +109,16 @@ describe("pickOnePerColumn", () => {
   it("keeps a lone film on screen while the activities take turns", () => {
     const ongoing = [film("A"), other("X"), other("Y"), other("Z")];
     for (const turn of [0, 1, 2, 3, 4]) {
-      expect(pickOnePerColumn(ongoing, turn)).toContainEqual(film("A"));
+      expect(pickOnePerColumn(ongoing, turn).map((activity) => activity.name)).toContain("A");
     }
+  });
+  it("numbers the shown card by its place among the ongoing in its column", () => {
+    const ongoing = [film("A"), other("X"), other("Y"), other("Z")];
+    const shown = pickOnePerColumn(ongoing, 4).map(({ name, rotation }) => ({ name, rotation }));
+    expect(shown).toEqual([
+      { name: "A", rotation: undefined },
+      { name: "Y", rotation: { position: 2, count: 3 } },
+    ]);
   });
   it("returns nothing when nothing is ongoing", () => {
     expect(pickOnePerColumn([], 3)).toEqual([]);
@@ -200,6 +208,12 @@ describe("renderActivity", () => {
   it("handles null activity_column gracefully", () => {
     const activity = { ...baseActivity, activity_column: null };
     expect(() => renderActivity(activity, 0, false)).not.toThrow();
+  });
+  it("shows the place in the rotation only on a card that takes turns", () => {
+    const html = renderActivity({ ...baseActivity, rotation: { position: 2, count: 5 } }, 0, false);
+    expect(html).toContain("icons/rotation.svg");
+    expect(html).toContain("2/5");
+    expect(renderActivity(baseActivity, 0, false)).not.toContain("icons/rotation.svg");
   });
   it("sets print CSS variables on section", () => {
     const activity = { ...baseActivity, printing_rownumber: "2", printing_columnnumber: "1" };
