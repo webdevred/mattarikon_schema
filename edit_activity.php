@@ -21,13 +21,14 @@ if( isset($_GET["activity_id"] )) {
     $stmt->close();
 }
 
+$clean_name = str_replace('"', '&quot;', $name);
 ?>
 
 <form method="POST" action="edit_activity_action.php">
   <input type="hidden" name="activity_id" value="<?php echo $activity_id; ?>">
   <fieldset>
     <label for="name">Namn på film/aktiviteten?</label>
-    <input id="name" name="name" value="<?php echo $name; ?>">
+    <input id="name" name="name" value="<?php echo $clean_name; ?>">
   </fieldset>
   <fieldset>
     <label for="type">Film/Föreläsning?</label>
