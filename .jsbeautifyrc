@@ -7,7 +7,7 @@
   "space_in_paren": false,
   "space_in_empty_paren": false,
   "brace_style": "collapse,preserve-inline",
-  "operator_position": "preserve-newline",
+  "operator_position": "after-newline",
   "js": {
     "indent_size": 2
   }
