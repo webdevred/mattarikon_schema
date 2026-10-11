@@ -30,16 +30,15 @@ if ! [[ "$cnt" -gt 0 ]]; then
       -e "s|\${DATABASE_NAME}|${DATABASE_NAME}|g" \
       config.template.php > config.php
 
-  echo "inserting data"
-
-  mysql --skip-ssl-verify-server-cert "$DATABASE_NAME" < ./dump_schema.sql
-
-  mysql --skip-ssl-verify-server-cert "$DATABASE_NAME" < ./dump_baseline_data.sql
-
   if [ -f ./dump_dev_data_local.sql ]; then
     echo "inserting local dev data"
-    mysql --skip-ssl-verify-server-cert "$DATABASE_NAME" < ./dump_dev_data_local.sql
+    sed -E '/^(CREATE DATABASE|USE) [^;]*;$/d' ./dump_dev_data_local.sql \
+      | mysql --skip-ssl-verify-server-cert "$DATABASE_NAME"
   else
+    echo "inserting data"
+    mysql --skip-ssl-verify-server-cert "$DATABASE_NAME" < ./dump_schema.sql
+    mysql --skip-ssl-verify-server-cert "$DATABASE_NAME" < ./dump_baseline_data.sql
+
     echo "inserting dev data"
     mysql --skip-ssl-verify-server-cert "$DATABASE_NAME" < ./dump_dev_data.sql
   fi
