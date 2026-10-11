@@ -6,6 +6,7 @@ import {
   computeGroupIndex,
   pickOnePerColumn,
   renderActivity,
+  renderRotationPie,
 } from "./schedule-utils.js";
 
 describe("escapeHtml", () => {
@@ -211,9 +212,17 @@ describe("renderActivity", () => {
   });
   it("shows the place in the rotation only on a card that takes turns", () => {
     const html = renderActivity({ ...baseActivity, rotation: { position: 2, count: 5 } }, 0, false);
-    expect(html).toContain("icons/rotation.svg");
+    expect(html).toContain('class="rotation"');
     expect(html).toContain("2/5");
-    expect(renderActivity(baseActivity, 0, false)).not.toContain("icons/rotation.svg");
+    expect(renderActivity(baseActivity, 0, false)).not.toContain('class="rotation"');
+  });
+  it("fills one slice of the rotation pie for each ongoing card shown so far", () => {
+    const pie = renderRotationPie({ position: 2, count: 5 });
+    expect(pie.match(/<path /g)).toHaveLength(5);
+    expect(pie.match(/fill="#000"/g)).toHaveLength(2);
+  });
+  it("fills the whole rotation pie on the last ongoing card", () => {
+    expect(renderRotationPie({ position: 3, count: 3 })).not.toContain('fill="none"');
   });
   it("sets print CSS variables on section", () => {
     const activity = { ...baseActivity, printing_rownumber: "2", printing_columnnumber: "1" };

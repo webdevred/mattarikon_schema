@@ -168,9 +168,9 @@ section.activity .rotation {
     font-weight: bold;
 }
 
-section.activity .rotation img {
-    float: none;
+section.activity .rotation svg {
     width: 2rem;
+    height: 2rem;
 }
 
 .activities section.activity p.break {

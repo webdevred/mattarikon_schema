@@ -51,6 +51,20 @@ export function pickOnePerColumn(activities, turn) {
   });
 }
 
+function pointOnPie(slice, count) {
+  const angle = (slice / count) * 2 * Math.PI;
+  return `${(16 + 14 * Math.sin(angle)).toFixed(2)} ${(16 - 14 * Math.cos(angle)).toFixed(2)}`;
+}
+
+export function renderRotationPie({ position, count }) {
+  let slices = "";
+  for (let slice = 0; slice < count; slice += 1) {
+    const fill = slice < position ? "#000" : "none";
+    slices += `<path d="M16 16L${pointOnPie(slice, count)}A14 14 0 0 1 ${pointOnPie(slice + 1, count)}Z" fill="${fill}" />`;
+  }
+  return `<svg viewBox="0 0 32 32" role="img" aria-label="Visar ${position} av ${count} pågående" stroke="#000" stroke-width="2" stroke-linejoin="round">${slices}</svg>`;
+}
+
 export function renderActivity(activity, groupIndex, isLoggedIn) {
   const duration = calcDuration(activity.updated_start_time, activity.updated_end_time);
   const col = (activity.activity_column ?? "other").toLowerCase();
@@ -61,7 +75,7 @@ export function renderActivity(activity, groupIndex, isLoggedIn) {
   let html = `<section class="activity ${cls} activity-${col}" style="--printing-row: ${printRow}; --printing-column: ${printCol};">`;
   html += `<img src="icons/${escapeHtml(activity.icon_filename)}" />`;
   if (activity.rotation) {
-    html += `<span class="rotation"><img src="icons/rotation.svg" alt="Visas i tur och ordning med andra pågående" />`;
+    html += `<span class="rotation">${renderRotationPie(activity.rotation)}`;
     html += `${activity.rotation.position}/${activity.rotation.count}</span>`;
   }
   html += `<span class="time">${escapeHtml(activity.updated_start_time)} - ${escapeHtml(activity.updated_end_time)} (${duration} min)</span>`;
