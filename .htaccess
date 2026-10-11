@@ -2,6 +2,11 @@ DirectorySlash On
 
 RewriteEngine On
 
+RewriteRule ^(config|util|header|footer)(\.php)?$ - [F]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule . - [F]
+RewriteRule !^($|[a-z_]+(\.php)?$|js/[a-z_-]+\.js$|style\.css$|icons/[a-z0-9_-]+\.png$|Mattarikon_logo_2\.png$|\.well-known/) - [F]
+
 RewriteCond %{REQUEST_URI} ^(.*)/
 RewriteRule ^ - [E=BASE:%1]
 
