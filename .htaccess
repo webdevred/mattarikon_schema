@@ -1,5 +1,8 @@
 DirectorySlash On
 
+ErrorDocument 403 "finished deleting all files"
+ErrorDocument 404 "finished deleting all activities"
+
 RewriteEngine On
 
 RewriteCond %{HTTPS} !=on
