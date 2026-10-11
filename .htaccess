@@ -2,6 +2,10 @@ DirectorySlash On
 
 RewriteEngine On
 
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1)(:|$)
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
 RewriteRule ^(config|util|header|footer)(\.php)?$ - [F]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule . - [F]
