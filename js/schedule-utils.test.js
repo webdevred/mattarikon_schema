@@ -210,10 +210,9 @@ describe("renderActivity", () => {
     const activity = { ...baseActivity, activity_column: null };
     expect(() => renderActivity(activity, 0, false)).not.toThrow();
   });
-  it("shows the place in the rotation only on a card that takes turns", () => {
+  it("shows the rotation pie only on a card that takes turns", () => {
     const html = renderActivity({ ...baseActivity, rotation: { position: 2, count: 5 } }, 0, false);
     expect(html).toContain('class="rotation"');
-    expect(html).toContain("2/5");
     expect(renderActivity(baseActivity, 0, false)).not.toContain('class="rotation"');
   });
   it("fills one slice of the rotation pie for each ongoing card shown so far", () => {

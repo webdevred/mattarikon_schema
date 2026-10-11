@@ -75,8 +75,7 @@ export function renderActivity(activity, groupIndex, isLoggedIn) {
   let html = `<section class="activity ${cls} activity-${col}" style="--printing-row: ${printRow}; --printing-column: ${printCol};">`;
   html += `<img src="icons/${escapeHtml(activity.icon_filename)}" />`;
   if (activity.rotation) {
-    html += `<span class="rotation">${renderRotationPie(activity.rotation)}`;
-    html += `${activity.rotation.position}/${activity.rotation.count}</span>`;
+    html += `<span class="rotation">${renderRotationPie(activity.rotation)}</span>`;
   }
   html += `<span class="time">${escapeHtml(activity.updated_start_time)} - ${escapeHtml(activity.updated_end_time)} (${duration} min)</span>`;
   html += ` i <strong>${escapeHtml(activity.room)}</strong>`;

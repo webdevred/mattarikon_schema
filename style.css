@@ -160,12 +160,7 @@ section.activity img {
 
 section.activity .rotation {
     float: right;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
     margin: 0.5rem 0.75rem 0 0;
-    font-size: 1.25rem;
-    font-weight: bold;
 }
 
 section.activity .rotation svg {
