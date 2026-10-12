@@ -2,12 +2,13 @@ name: mattarikon-schema
 
 services:
   mysql:
-    image: mariadb:10.6.23-jammy
+    image: mariadb:10.11.18
     container_name: mysql
     volumes: [db_data:/var/lib/mysql]
     environment:
       MARIADB_ROOT_PASSWORD: root
       MARIADB_DATABASE: app_db
+      MARIADB_AUTO_UPGRADE: 1
     ports: [127.0.0.1:3306:3306]
     restart: always
     healthcheck:
