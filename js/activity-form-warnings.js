@@ -1,4 +1,7 @@
 import { findRoomConflicts } from "./room-conflicts.js";
+import { summaryWarningMessage } from "./summary-warning.js";
+
+const COUNTDOWN_MS = 2 * 60 * 1000;
 
 const summary = document.querySelector("#summary");
 const room = document.querySelector("#room");
@@ -14,13 +17,39 @@ function noteAfter(field) {
   return note;
 }
 
+let countdownDeadline = null;
+let countdownExpired = false;
+let countdownTimer = null;
+
+function stopCountdownTimer() {
+  if (countdownTimer) {
+    clearInterval(countdownTimer);
+    countdownTimer = null;
+  }
+}
+
 function showSummaryLength(note, warningLength) {
   const length = summary.value.length;
   const isTooLong = length > warningLength;
-  note.textContent = isTooLong
-    ? `Beskrivningen är för lång: ${length} av ${warningLength} tecken.`
-    : `${length} av ${warningLength} tecken`;
-  note.classList.toggle("form-warning", isTooLong);
+
+  if (!isTooLong) {
+    stopCountdownTimer();
+    countdownDeadline = null;
+    countdownExpired = false;
+  } else if (countdownDeadline === null && !countdownExpired) {
+    countdownDeadline = Date.now() + COUNTDOWN_MS;
+    countdownTimer = setInterval(() => showSummaryLength(note, warningLength), 1000);
+  }
+
+  const remainingMs = isTooLong ? (countdownExpired ? 0 : countdownDeadline - Date.now()) : 0;
+  if (isTooLong && !countdownExpired && remainingMs <= 0) {
+    countdownExpired = true;
+    stopCountdownTimer();
+  }
+
+  const { text, isWarning } = summaryWarningMessage(length, warningLength, remainingMs);
+  note.textContent = text;
+  note.classList.toggle("form-warning", isWarning);
 }
 
 function showRoomConflicts(note, activities) {

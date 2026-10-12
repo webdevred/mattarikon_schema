@@ -17,6 +17,7 @@ export default defineConfig([
         Date: "readonly",
         Event: "readonly",
         setInterval: "readonly",
+        clearInterval: "readonly",
         setTimeout: "readonly",
       },
     },
