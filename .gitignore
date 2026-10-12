@@ -5,3 +5,5 @@
 config.php
 dump_dev_data_local.sql
 node_modules/
+.ruff_cache/
+.vitest/
